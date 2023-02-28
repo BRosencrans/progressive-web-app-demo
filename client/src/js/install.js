@@ -12,7 +12,7 @@ butInstall.addEventListener('click', async () => {
     if (!newInstall) {
         return;
     }
-    promptEvent.prompt();
+    newInstall.prompt();
     window.deferredPrompt = null;
     butInstall.classList.toggle('hidden', true);
 });
