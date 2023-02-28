@@ -11,11 +11,34 @@ const initdb = async () =>
       console.log('jate database created');
     },
   });
+//Method to add data to thed atabase
+  export const putDb = async (content)  => {
 
-// TODO: Add logic to a method that accepts some content and adds it to the database
-export const putDb = async (content) => console.error('putDb not implemented');
+    const jateDb = await openDB('jate', 1);
+  
+    const newTransaction = jateDb.transaction('jate', 'readwrite');
+  
+    const storeObj = newTransaction.objectStore('jate');
+  
+    const addData = storeObj.put({ id: 1, value: content });
 
-// TODO: Add logic for a method that gets all the content from the database
-export const getDb = async () => console.error('getDb not implemented');
-
+    const newData = await addData;
+    console.log("Saved to the database successfully", newData);
+  };
+  // Method that gets all the content from the database
+  export const getDb = async () => {
+  
+    const jateDb = await openDB('jate', 1);
+  
+    const newTransaction= jateDb.transaction('jate', 'readonly');
+  
+    const storeObj = newTransaction.objectStore('jate');
+  
+    const allData = storeObj.getAll();
+  
+    const showData = await allData;
+    console.log('result.value', showData);
+    return showData?.value;
+  };
+  
 initdb();
